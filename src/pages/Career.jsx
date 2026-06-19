@@ -154,8 +154,7 @@ export default function Career() {
         <div className="container">
           <span className="section-tag">Join Our Team</span>
           <h1 className="page-hero__title">
-            Build the Future<br />
-            <span className="gradient-text">With Us</span>
+            Build the Future <span className="gradient-text">With Us</span>
           </h1>
           <p className="page-hero__sub">
             We're a small but mighty team building real products for real clients. If you love solving problems with code — you'll fit right in.

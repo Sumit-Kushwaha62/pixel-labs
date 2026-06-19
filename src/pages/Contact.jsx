@@ -111,8 +111,7 @@ export default function Contact() {
         <div className="container">
           <span className="section-tag">Get In Touch</span>
           <h1 className="page-hero__title">
-            Let's Talk About<br />
-            <span className="gradient-text">Your Project</span>
+            Let's Talk About <span className="gradient-text">Your Project</span>
           </h1>
           <p className="page-hero__sub">
             Free consultation · No obligation · Reply within 2 hours

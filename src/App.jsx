@@ -13,9 +13,12 @@ import PixelAI from './components/PixelAI'
 import ScrollToTop from './components/ScrollToTop';
 import './App.css';
 import './style.css';
+// import './style1.css';
 
 function App() {
   return (
+
+
     <Router>
       <div className="app-container">
         <Navbar />

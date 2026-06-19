@@ -79,8 +79,7 @@ export default function About() {
         <div className="container">
           <span className="section-tag">Our Story</span>
           <h1 className="page-hero__title">
-            Built in Jabalpur,<br />
-            <span className="gradient-text">Trusted Across India</span>
+            Built in Jabalpur, <span className="gradient-text">Trusted Across India</span>
           </h1>
           <p className="page-hero__sub">
             We're a passionate team of developers, designers and marketers on a mission to make quality software accessible to every business — big or small.

@@ -800,7 +800,7 @@
   align-items: center;
   overflow: hidden;
   background: var(--gradient-hero);
-  padding: 120px 0 80px;
+  padding: 70px 0 60px;
 }
 
 .hero__grid {
@@ -839,7 +839,8 @@
 .hero__inner {
   position: relative;
   z-index: 2;
-  max-width: 680px;
+  width: 100%;
+  max-width: var(--container);
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
@@ -953,7 +954,7 @@
 .hero__code-card {
   position: absolute;
   right: 5%;
-  top: 50%;
+  top: 45%;
   transform: translateY(-50%) translateX(60px);
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -1637,6 +1638,17 @@
   margin-bottom: 20px;
   position: relative;
   z-index: 1;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .page-hero__title {
+    white-space: normal;
+  }
+
+  .page-hero__title .gradient-text {
+    white-space: nowrap;
+  }
 }
 
 .page-hero__sub {
