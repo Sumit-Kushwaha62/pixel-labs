@@ -1,4 +1,8 @@
 import { Link } from 'react-router-dom'
+import sumitImage from '../assets/somya shukla.png'
+import riyaImage from '../assets/riya jyotishi.jpeg'
+import kashishImage from '../assets/kashish sahu.jpeg'
+import somyaImage from '../assets/somya shukla.jpeg'
 
 const team = [
   {
@@ -6,7 +10,7 @@ const team = [
     role: 'Tech Lead & Full Stack Developer',
     bio: 'Full stack developer with expertise in React, Node.js, and cloud infrastructure. Handles architecture, backend, deployment and client-facing technical decisions.',
     skills: ['React', 'Node.js', 'DevOps', 'AWS', 'Supabase'],
-    avatar: 'SU',
+    image: sumitImage,
     color: '#6C63FF',
     founder: true,
     linkedin: '#',
@@ -17,7 +21,7 @@ const team = [
     role: 'UI/UX Designer & Frontend Developer',
     bio: 'Creative designer who turns complex ideas into beautiful, intuitive interfaces. Expert in Figma, React and crafting pixel-perfect user experiences.',
     skills: ['Figma', 'React', 'CSS3', 'Framer', 'UI/UX'],
-    avatar: 'RI',
+    image: riyaImage,
     color: '#00D4AA',
     founder: true,
     linkedin: '#',
@@ -28,7 +32,7 @@ const team = [
     role: 'Backend Developer & API Expert',
     bio: 'Backend specialist focused on building scalable APIs, database architecture and server-side logic. Expert in Node.js, PHP and MySQL.',
     skills: ['Node.js', 'PHP', 'MySQL', 'REST API', 'Laravel'],
-    avatar: 'KA',
+    image: kashishImage,
     color: '#FFB347',
     founder: false,
     linkedin: '#',
@@ -39,7 +43,7 @@ const team = [
     role: 'Digital Marketing & SEO Specialist',
     bio: 'Growth-focused marketer who drives organic traffic and paid campaigns. Specializes in local SEO for MP businesses and Google Ads management.',
     skills: ['SEO', 'Google Ads', 'Meta Ads', 'Content', 'GMB'],
-    avatar: 'SO',
+    image: somyaImage,
     color: '#FF6B6B',
     founder: false,
     linkedin: '#',
@@ -166,8 +170,8 @@ export default function About() {
             {team.map((m, i) => (
               <div key={i} className="about-team-card" style={{ '--card-color': m.color }}>
                 <div className="about-team-card__avatar-wrap">
-                  <div className="about-team-card__avatar" style={{ background: `${m.color}20`, color: m.color }}>
-                    {m.avatar}
+                  <div className="about-team-card__avatar">
+                    <img src={m.image} alt={`${m.name} profile`} />
                   </div>
                   {m.founder && <span className="about-team-card__founder">Co-Founder</span>}
                 </div>

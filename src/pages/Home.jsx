@@ -1,5 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import sumitImage from '../assets/somya shukla.png'
+import riyaImage from '../assets/riya jyotishi.jpeg'
+import kashishImage from '../assets/kashish sahu.jpeg'
+import somyaImage from '../assets/somya shukla.jpeg'
 
 // ─── DATA ────────────────────────────────────────────────────────────────────
 
@@ -206,7 +210,7 @@ const team = [
     name: 'Sumit Kushwaha',
     role: 'Tech Lead & Full Stack Developer',
     skills: 'React · Node.js · DevOps',
-    avatar: 'SU',
+    image: sumitImage,
     color: '#6C63FF',
     founder: true,
   },
@@ -214,7 +218,7 @@ const team = [
     name: 'Riya Jyotishi',
     role: 'UI/UX & Frontend Devloper',
     skills: 'Figma · React · CSS',
-    avatar: 'RI',
+    image: riyaImage,
     color: '#00D4AA',
     founder: false,
   },
@@ -222,7 +226,7 @@ const team = [
     name: 'Kashish Sahu',
     role: 'Backend Developer',
     skills: 'Node.js · PHP · MySQL',
-    avatar: 'KA',
+    image: kashishImage,
     color: '#FFB347',
     founder: false,
   },
@@ -230,7 +234,7 @@ const team = [
     name: 'Somya Shukla',
     role: 'Digital Marketing & SEO Head',
     skills: 'SEO · Google Ads · Content',
-    avatar: 'SO',
+    image: somyaImage,
     color: '#FF6B6B',
     founder: false,
   },
@@ -587,11 +591,8 @@ export default function Home() {
           <div className="home-team__grid">
             {team.map((m, i) => (
               <div key={i} className="team-card">
-                <div
-                  className="team-card__avatar"
-                  style={{ background: `${m.color}22`, color: m.color }}
-                >
-                  {m.avatar}
+                <div className="team-card__avatar">
+                  <img src={m.image} alt={`${m.name} profile`} />
                   {m.founder && (
                     <span className="team-card__founder-badge">founder</span>
                   )}

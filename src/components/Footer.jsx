@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import pixelLabsLogo from '../assets/pixel-labs-logo.svg';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -25,7 +26,11 @@ const Footer = () => {
           <div className="footer__grid">
             <div className="footer__brand">
               <Link to="/" className="footer__logo">
-                <span className="footer__logo-text">PixelLab</span>
+                <img
+                  className="footer__logo-image"
+                  src={pixelLabsLogo}
+                  alt="Pixel Labs Software Solutions"
+                />
               </Link>
               <p className="footer__tagline">
                 Turning ambitious ideas into digital reality. We build high-performance 

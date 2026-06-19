@@ -1,5 +1,6 @@
 import { Link, NavLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import pixelLabsLogo from '../assets/pixel-labs-logo.svg';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -27,21 +28,11 @@ const Navbar = () => {
     <nav className={`navbar ${isScrolled ? 'navbar--scrolled' : ''}`}>
       <div className="navbar__inner">
         <Link to="/" className="navbar__logo">
-          <div className="navbar__logo-icon">
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-              <rect width="32" height="32" rx="8" fill="url(#nav-grad)" />
-              <path d="M10 16L14 20L22 12" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-              <defs>
-                <linearGradient id="nav-grad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
-                  <stop stopColor="#6C63FF" />
-                  <stop offset="1" stopColor="#00D4AA" />
-                </linearGradient>
-              </defs>
-            </svg>
-          </div>
-          <span className="navbar__logo-text">
-            Pixel Labs <span className="navbar__logo-accent"> Software Solutions</span>
-          </span>
+          <img
+            className="navbar__logo-image"
+            src={pixelLabsLogo}
+            alt="Pixel Labs Software Solutions"
+          />
         </Link>
 
         <ul className="navbar__links">
