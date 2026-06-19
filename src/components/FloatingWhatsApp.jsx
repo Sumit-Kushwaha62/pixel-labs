@@ -23,7 +23,7 @@ export default function FloatingWhatsApp() {
   }, [visible])
 
   const waLink =
-    'https://wa.me/91XXXXXXXXXX?text=Hi%20Pixel%20Labs!%20I%20want%20to%20discuss%20a%20project.'
+    'https://wa.me/7509955205?text=Hi%20Pixel%20Labs!%20I%20want%20to%20discuss%20a%20project.'
 
   return (
     <div className={`fwa ${visible ? 'fwa--visible' : ''}`}>
