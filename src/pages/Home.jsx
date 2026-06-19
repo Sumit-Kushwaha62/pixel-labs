@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom'
 // ─── DATA ────────────────────────────────────────────────────────────────────
 
 const stats = [
-  { value: 50, suffix: '+', label: 'Projects Delivered' },
-  { value: 30, suffix: '+', label: 'Happy Clients' },
-  { value: 4, suffix: '+', label: 'Years Experience' },
-  { value: 99, suffix: '%', label: 'Client Satisfaction' },
+  { value: 139, suffix: '+', label: 'Projects Delivered' },
+  { value: 100, suffix: '%', label: 'Happy Clients' },
+  { value: 7, suffix: '+', label: 'Years Experience' },
+  { value: 100, suffix: '%', label: 'Client Satisfaction' },
 ]
 
 const services = [
@@ -203,23 +203,23 @@ const testimonials = [
 
 const team = [
   {
-    name: 'Sumit',
-    role: 'Tech Lead & Full Stack Dev',
+    name: 'Sumit Kushwaha',
+    role: 'Tech Lead & Full Stack Developer',
     skills: 'React · Node.js · DevOps',
     avatar: 'SU',
     color: '#6C63FF',
     founder: true,
   },
   {
-    name: 'Riya',
-    role: 'UI/UX & Frontend Dev',
+    name: 'Riya Jyotishi',
+    role: 'UI/UX & Frontend Devloper',
     skills: 'Figma · React · CSS',
     avatar: 'RI',
     color: '#00D4AA',
-    founder: true,
+    founder: false,
   },
   {
-    name: 'Kashish',
+    name: 'Kashish Sahu',
     role: 'Backend Developer',
     skills: 'Node.js · PHP · MySQL',
     avatar: 'KA',
@@ -227,8 +227,8 @@ const team = [
     founder: false,
   },
   {
-    name: 'Somya',
-    role: 'Digital Marketing & SEO',
+    name: 'Somya Shukla',
+    role: 'Digital Marketing & SEO Head',
     skills: 'SEO · Google Ads · Content',
     avatar: 'SO',
     color: '#FF6B6B',
@@ -240,7 +240,7 @@ const whyUs = [
   { icon: '⚡', title: 'Fast Delivery', desc: 'Agile process. MVP in 2–4 weeks, full projects on schedule.' },
   { icon: '💰', title: 'Transparent Pricing', desc: 'No hidden costs. Fixed quotes upfront, starting ₹15,000.' },
   { icon: '💬', title: '24/7 Support', desc: 'WhatsApp, email and call support. We respond within 2 hours.' },
-  { icon: '🔧', title: 'Any Tech Stack', desc: 'PHP to Node.js, React to Flutter. Every technology covered.' },
+  { icon: '⚙️', title: 'Any Tech Stack', desc: 'PHP to Node.js, React to Flutter. Every technology covered.' },
   { icon: '📄', title: '100% Code Ownership', desc: 'Full source code delivered to you. No lock-ins ever.' },
   { icon: '🔒', title: 'NDA Protected', desc: 'Your idea stays yours. We sign NDA before project starts.' },
 ]
@@ -331,7 +331,7 @@ export default function Home() {
 
           <div className="hero__actions">
             <a
-              href="https://wa.me/91XXXXXXXXXX?text=Hi%20Pixel%20Labs!%20I%20need%20a%20free%20consultation."
+              href="https://wa.me/7509955205?text=Hi%20Pixel%20Labs!%20I%20need%20a%20free%20consultation."
               target="_blank"
               rel="noreferrer"
               className="btn-primary hero__btn-primary"
@@ -351,16 +351,19 @@ export default function Home() {
           </div>
 
           <div className="hero__trust">
-            <span className="hero__trust-text">Trusted by businesses across MP & India</span>
-            <div className="hero__trust-avatars">
-              {['RS','PV','AJ','SP','MK'].map((a, i) => (
+            <span className="hero__trust-text">Trusted by businesses across MP & India -- </span>
+            {/* <div className="hero__trust-avatars">
+              {['Aradhya Group','Ayush Bharat','Shri Shri Tatva','Rajul Builders'].map((a, i) => (
                 <div key={i} className="hero__trust-avatar" style={{ zIndex: 5 - i }}>
                   {a}
                 </div>
               ))}
               <span className="hero__trust-count">50+ clients</span>
-            </div>
+            </div> */}
+            <span className="hero__trust-count">122+ clients</span>
           </div>
+
+
         </div>
 
         {/* Floating code card */}
@@ -591,7 +594,7 @@ export default function Home() {
                 >
                   {m.avatar}
                   {m.founder && (
-                    <span className="team-card__founder-badge">Co-founder</span>
+                    <span className="team-card__founder-badge">founder</span>
                   )}
                 </div>
                 <h3 className="team-card__name">{m.name}</h3>
@@ -615,7 +618,7 @@ export default function Home() {
               Learn Web Development, Mobile Apps, and AI from industry experts. Practical, job-ready training programs starting soon.
             </p>
             <a
-              href="https://wa.me/91XXXXXXXXXX?text=Hi!%20I%20want%20to%20join%20the%20Pixel%20Labs%20training%20waitlist."
+              href="https://wa.me/7509955205?text=Hi!%20I%20want%20to%20join%20the%20Pixel%20Labs%20training%20waitlist."
               target="_blank"
               rel="noreferrer"
               className="btn-primary"
@@ -640,7 +643,7 @@ export default function Home() {
             <div className="home-cta__actions">
               <Link to="/contact" className="btn-primary">Start Your Project</Link>
               <a
-                href="https://wa.me/91XXXXXXXXXX"
+                href="https://wa.me/7509955205"
                 target="_blank"
                 rel="noreferrer"
                 className="btn-outline"

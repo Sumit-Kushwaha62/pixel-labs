@@ -279,11 +279,12 @@ export default function Career() {
               </p>
               <div style={{ marginTop: 24 }}>
                 <a
-                  href="https://wa.me/91XXXXXXXXXX?text=Hi! I want to apply at Pixel Labs."
+                  href="https://wa.me/7509955205?text=Hi! I want to apply at Pixel Labs."
                   target="_blank"
                   rel="noreferrer"
                   className="btn-primary"
                 >
+                  
                   💬 WhatsApp Your CV
                 </a>
               </div>

@@ -6,7 +6,7 @@ const contactMethods = [
     title: 'WhatsApp',
     desc: 'Fastest response — reply within 1 hour',
     action: 'Chat Now',
-    href: 'https://wa.me/91XXXXXXXXXX?text=Hi%20Pixel%20Labs!%20I%20want%20to%20discuss%20a%20project.',
+    href: 'https://wa.me/7509955205?text=Hi%20Pixel%20Labs!%20I%20want%20to%20discuss%20a%20project.',
     color: '#25D366',
   },
   {
@@ -22,7 +22,7 @@ const contactMethods = [
     title: 'Phone',
     desc: '+91 XXXXX XXXXX',
     action: 'Call Now',
-    href: 'tel:+91XXXXXXXXXX',
+    href: 'tel:+7509955205',
     color: '#00D4AA',
   },
   {

@@ -163,7 +163,7 @@ export default function Pricing() {
 
                 <div className="pricing-card__footer">
                   <a
-                    href={`https://wa.me/91XXXXXXXXXX?text=Hi! I'm interested in the ${p.name} plan.`}
+                    href={`https://wa.me/7509955205?text=Hi! I'm interested in the ${p.name} plan.`}
                     target="_blank"
                     rel="noreferrer"
                     className={p.popular ? 'btn-primary' : 'btn-outline'}
@@ -202,7 +202,7 @@ export default function Pricing() {
                 <div className="addon-card__right">
                   <span className="addon-card__price">{a.price}</span>
                   <a
-                    href="https://wa.me/91XXXXXXXXXX?text=Hi! I want to add an extra service."
+                    href="https://wa.me/7509955205?text=Hi! I want to add an extra service."
                     target="_blank"
                     rel="noreferrer"
                     className="addon-card__btn"
@@ -302,7 +302,7 @@ export default function Pricing() {
             <div className="home-cta__actions">
               <Link to="/contact" className="btn-primary">Get Free Quote</Link>
               <a
-                href="https://wa.me/91XXXXXXXXXX"
+                href="https://wa.me/7509955205"
                 target="_blank"
                 rel="noreferrer"
                 className="btn-outline"

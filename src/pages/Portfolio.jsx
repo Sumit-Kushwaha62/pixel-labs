@@ -152,8 +152,8 @@ export default function Portfolio() {
         <div className="container">
           <div className="portfolio-stats__grid">
             {[
-              { v: '50+', l: 'Projects Delivered' },
-              { v: '30+', l: 'Happy Clients' },
+              { v: '139+', l: 'Projects Delivered' },
+              { v: '100%', l: 'Happy Clients' },
               { v: '8+', l: 'Industries Served' },
               { v: '100%', l: 'On-time Delivery' },
             ].map((s, i) => (
@@ -257,7 +257,7 @@ export default function Portfolio() {
                 ))}
               </div>
               <a
-                href={`https://wa.me/91XXXXXXXXXX?text=Hi! I saw your ${opened.title} project and want something similar.`}
+                href={`https://wa.me/7509955205?text=Hi! I saw your ${opened.title} project and want something similar.`}
                 target="_blank"
                 rel="noreferrer"
                 className="btn-primary"

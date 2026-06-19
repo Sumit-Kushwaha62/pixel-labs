@@ -110,11 +110,11 @@ export default function About() {
             <div className="about-mission__right">
               <div className="about-stats-box">
                 {[
-                  { v: '50+', l: 'Projects Delivered' },
-                  { v: '30+', l: 'Happy Clients' },
+                  { v: '139+', l: 'Projects Delivered' },
+                  { v: '100%', l: 'Happy Clients' },
                   { v: '8+', l: 'Industries' },
-                  { v: '4', l: 'Core Team Members' },
-                  { v: '4+', l: 'Years Experience' },
+                  { v: '19', l: 'Core Team Members' },
+                  { v: '7+', l: 'Years Experience' },
                   { v: '100%', l: 'Source Code Ownership' },
                 ].map((s, i) => (
                   <div key={i} className="about-stat">
@@ -226,7 +226,7 @@ export default function About() {
               Offline coding bootcamp in Jabalpur. Learn web development, mobile apps and AI from the same team that builds real products. Job-ready in 3–6 months.
             </p>
             <a
-              href="https://wa.me/91XXXXXXXXXX?text=Hi! I want to join Pixel Labs Training Center waitlist."
+              href="https://wa.me/7509955205?text=Hi! I want to join Pixel Labs Training Center waitlist."
               target="_blank"
               rel="noreferrer"
               className="btn-primary"

@@ -258,7 +258,7 @@ export default function Services() {
                       </div>
                       <div className="service-detail-card__cta">
                         <a
-                          href={`https://wa.me/91XXXXXXXXXX?text=Hi! I'm interested in ${s.title} service.`}
+                          href={`https://wa.me/7509955205?text=Hi! I'm interested in ${s.title} service.`}
                           target="_blank"
                           rel="noreferrer"
                           className="btn-primary"
@@ -312,7 +312,7 @@ export default function Services() {
             </p>
             <div className="home-cta__actions">
               <a
-                href="https://wa.me/91XXXXXXXXXX?text=Hi! I need help choosing the right service."
+                href="https://wa.me/7509955205?text=Hi! I need help choosing the right service."
                 target="_blank"
                 rel="noreferrer"
                 className="btn-primary"
