@@ -9,6 +9,7 @@ import About from './pages/About';
 import Career from './pages/Career';
 import Contact from './pages/Contact';
 import FloatingWhatsApp from './components/FloatingWhatsApp'
+import PixelAI from './components/PixelAI'
 import ScrollToTop from './components/ScrollToTop';
 import './App.css';
 import './style.css';
@@ -32,6 +33,7 @@ function App() {
           </Routes>
         </main>
         <Footer />
+        <PixelAI />
         <FloatingWhatsApp />
       </div>
     </Router>

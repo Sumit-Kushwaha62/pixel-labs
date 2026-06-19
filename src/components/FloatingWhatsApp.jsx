@@ -10,18 +10,6 @@ export default function FloatingWhatsApp() {
     return () => clearTimeout(timer)
   }, [])
 
-  useEffect(() => {
-    // Show tooltip after button appears
-    if (visible) {
-      const t = setTimeout(() => {
-        setShowTooltip(true)
-        // Auto hide tooltip after 4s
-        setTimeout(() => setShowTooltip(false), 4000)
-      }, 800)
-      return () => clearTimeout(t)
-    }
-  }, [visible])
-
   const waLink =
     'https://wa.me/7509955205?text=Hi%20Pixel%20Labs!%20I%20want%20to%20discuss%20a%20project.'
 
