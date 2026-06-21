@@ -1,8 +1,41 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import pixelLabsLogo from '../assets/pixel-labs-logo.svg';
+import { API_ENDPOINTS } from '../config/api';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const [email, setEmail] = useState('');
+  const [newsletterStatus, setNewsletterStatus] = useState(null);
+  const [newsletterMessage, setNewsletterMessage] = useState('');
+
+  const handleNewsletterSubmit = async (event) => {
+    event.preventDefault();
+    setNewsletterStatus('sending');
+    setNewsletterMessage('');
+
+    try {
+      const response = await fetch(API_ENDPOINTS.newsletter, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: email.trim() }),
+      });
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Unable to subscribe');
+      }
+
+      setEmail('');
+      setNewsletterStatus('success');
+      setNewsletterMessage('Thank you for subscribing!');
+    } catch (error) {
+      setNewsletterStatus('error');
+      setNewsletterMessage(error.message || 'Something went wrong. Please try again.');
+    }
+  };
 
   return (
     <footer className="footer">
@@ -66,12 +99,33 @@ const Footer = () => {
             <div className="footer__newsletter">
               <h4 className="footer__col-title">Newsletter</h4>
               <p className="footer__newsletter-text">Get digital insights delivered to your inbox.</p>
-              <form className="footer__newsletter-form" onSubmit={(e) => e.preventDefault()}>
-                <input type="email" placeholder="Email address" required />
-                <button type="submit" className="footer__newsletter-btn">
-                  <span>Subscribe</span>
+              <form className="footer__newsletter-form" onSubmit={handleNewsletterSubmit}>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
+                  placeholder="Email address"
+                  required
+                />
+                <button
+                  type="submit"
+                  className="footer__newsletter-btn"
+                  disabled={newsletterStatus === 'sending'}
+                >
+                  <span>{newsletterStatus === 'sending' ? 'Subscribing...' : 'Subscribe'}</span>
                 </button>
               </form>
+              {newsletterMessage && (
+                <p
+                  style={{
+                    marginTop: 8,
+                    fontSize: 12,
+                    color: newsletterStatus === 'success' ? 'var(--cyan)' : '#ff6b6b',
+                  }}
+                >
+                  {newsletterMessage}
+                </p>
+              )}
             </div>
           </div>
         </div>

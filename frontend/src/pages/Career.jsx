@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { API_ENDPOINTS } from '../config/api'
 
 const openings = [
   {
@@ -116,31 +117,79 @@ const perks = [
   { icon: '🎉', title: 'Fun Culture', desc: 'Young team, open culture, no corporate BS' },
 ]
 
-const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/YOUR_CAREER_FORM_ID/formResponse'
+const EMPTY_FORM = {
+  name: '',
+  email: '',
+  mobile: '',
+  position: '',
+  experience: '',
+  location: '',
+  portfolio: '',
+  resume: null,
+  message: '',
+}
 
 export default function Career() {
   const [openJob, setOpenJob] = useState(null)
   const [applyJob, setApplyJob] = useState(null)
-  const [form, setForm] = useState({ name: '', email: '', phone: '', portfolio: '', message: '' })
+  const [form, setForm] = useState(EMPTY_FORM)
   const [status, setStatus] = useState(null)
+  const [errorMessage, setErrorMessage] = useState('')
 
-  const handleChange = e => setForm(p => ({ ...p, [e.target.name]: e.target.value }))
+  const handleChange = e => {
+    const { name, type, value, files } = e.target
+    setForm(previous => ({
+      ...previous,
+      [name]: type === 'file' ? files[0] || null : value,
+    }))
+  }
+
+  const openApplication = job => {
+    setApplyJob(job)
+    setForm({ ...EMPTY_FORM, position: job.title })
+    setStatus(null)
+    setErrorMessage('')
+  }
 
   const handleApply = async (e) => {
     e.preventDefault()
     setStatus('sending')
+    setErrorMessage('')
+
     const fd = new FormData()
-    fd.append('entry.111111111', applyJob?.title || '')
-    fd.append('entry.222222222', form.name)
-    fd.append('entry.333333333', form.email)
-    fd.append('entry.444444444', form.phone)
-    fd.append('entry.555555555', form.portfolio)
-    fd.append('entry.666666666', form.message)
+    fd.append('name', form.name.trim())
+    fd.append('email', form.email.trim())
+    fd.append('mobile', form.mobile.trim())
+    fd.append('position', form.position)
+    fd.append('experience', form.experience.trim())
+    fd.append('location', form.location.trim())
+    fd.append('portfolio', form.portfolio.trim())
+    fd.append('message', form.message.trim())
+
+    if (form.resume) {
+      fd.append('resume', form.resume)
+    }
+
     try {
-      await fetch(GOOGLE_FORM_URL, { method: 'POST', mode: 'no-cors', body: fd })
+      const response = await fetch(API_ENDPOINTS.career, {
+        method: 'POST',
+        body: fd,
+      })
+      const data = await response.json()
+
+      if (!response.ok) {
+        const missingFields = Array.isArray(data.fields) && data.fields.length > 0
+          ? `: ${data.fields.join(', ')}`
+          : ''
+
+        throw new Error(`${data.message || 'Unable to submit your application'}${missingFields}`)
+      }
+
       setStatus('sent')
-    } catch {
+      setForm(EMPTY_FORM)
+    } catch (error) {
       setStatus('error')
+      setErrorMessage(error.message || 'Something went wrong. Please try again.')
     }
   }
 
@@ -253,7 +302,7 @@ export default function Career() {
                   <button
                     className="btn-primary"
                     style={{ marginTop: 24 }}
-                    onClick={() => { setApplyJob(job); setStatus(null) }}
+                    onClick={() => openApplication(job)}
                   >
                     Apply for {job.title} →
                   </button>
@@ -336,24 +385,42 @@ export default function Career() {
                         <input type="text" name="name" value={form.name} onChange={handleChange} placeholder="Your name" required />
                       </div>
                       <div className="contact-form__field">
-                        <label className="contact-form__label">Phone *</label>
-                        <input type="tel" name="phone" value={form.phone} onChange={handleChange} placeholder="+91 98765 43210" required />
+                        <label className="contact-form__label">Mobile *</label>
+                        <input type="tel" name="mobile" value={form.mobile} onChange={handleChange} placeholder="+91 98765 43210" required />
                       </div>
                     </div>
                     <div className="contact-form__field">
                       <label className="contact-form__label">Email *</label>
                       <input type="email" name="email" value={form.email} onChange={handleChange} placeholder="you@example.com" required />
                     </div>
+                    <div className="contact-form__row">
+                      <div className="contact-form__field">
+                        <label className="contact-form__label">Position *</label>
+                        <input type="text" name="position" value={form.position} readOnly required />
+                      </div>
+                      <div className="contact-form__field">
+                        <label className="contact-form__label">Experience *</label>
+                        <input type="text" name="experience" value={form.experience} onChange={handleChange} placeholder="e.g. 2 years" required />
+                      </div>
+                    </div>
+                    <div className="contact-form__field">
+                      <label className="contact-form__label">Location</label>
+                      <input type="text" name="location" value={form.location} onChange={handleChange} placeholder="City, State" />
+                    </div>
                     <div className="contact-form__field">
                       <label className="contact-form__label">Portfolio / GitHub / LinkedIn URL</label>
                       <input type="url" name="portfolio" value={form.portfolio} onChange={handleChange} placeholder="https://github.com/yourname" />
                     </div>
                     <div className="contact-form__field">
-                      <label className="contact-form__label">Why do you want to join Pixel Labs? *</label>
-                      <textarea name="message" value={form.message} onChange={handleChange} rows={4} placeholder="Tell us about yourself, your experience and why you want to join..." required />
+                      <label className="contact-form__label">Resume PDF</label>
+                      <input type="file" name="resume" accept="application/pdf" onChange={handleChange} />
+                    </div>
+                    <div className="contact-form__field">
+                      <label className="contact-form__label">Why do you want to join Pixel Labs?</label>
+                      <textarea name="message" value={form.message} onChange={handleChange} rows={4} placeholder="Tell us about yourself, your experience and why you want to join..." />
                     </div>
                     {status === 'error' && (
-                      <p className="contact-form__error">Something went wrong. Please WhatsApp us your CV directly.</p>
+                      <p className="contact-form__error">{errorMessage}</p>
                     )}
                     <button type="submit" className="btn-primary contact-form__submit" disabled={status === 'sending'}>
                       {status === 'sending' ? <><span className="contact-form__spinner" /> Sending...</> : 'Submit Application →'}

@@ -41,8 +41,22 @@ const resumeUpload = multer({
   },
 })
 
+function handleResumeUpload(request, response, next) {
+  resumeUpload.single('resume')(request, response, error => {
+    if (error) {
+      response.status(400).json({
+        success: false,
+        message: 'Invalid resume file. Please upload a PDF up to 5MB.',
+      })
+      return
+    }
+
+    next()
+  })
+}
+
 router.post('/contact', submitContactForm)
-router.post('/career', resumeUpload.single('resume'), submitCareerForm)
+router.post('/career', handleResumeUpload, submitCareerForm)
 router.post('/newsletter', submitNewsletterForm)
 
 export default router

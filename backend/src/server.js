@@ -14,6 +14,8 @@ const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173'
 const currentDirectory = path.dirname(fileURLToPath(import.meta.url))
 const uploadsDirectory = path.resolve(currentDirectory, '../uploads')
 
+app.set('trust proxy', 1)
+
 app.use(
   cors({
     origin: frontendUrl,

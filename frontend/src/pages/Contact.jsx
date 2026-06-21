@@ -1,11 +1,10 @@
 import { useState } from 'react'
+import { API_ENDPOINTS } from '../config/api'
 import {
   BUDGET_OPTIONS,
   COUNTRY_OPTIONS,
-  GOOGLE_FORM_ENTRY_IDS,
-  GOOGLE_FORM_URL,
   SERVICE_OPTIONS,
-} from '../config/googleForms'
+} from '../config/contactFormOptions'
 
 const contactMethods = [
   {
@@ -76,26 +75,39 @@ export default function Contact() {
     setStatus('sending')
     setErrorMessage('')
 
-    const formData = new FormData()
-    formData.append(GOOGLE_FORM_ENTRY_IDS.name, form.name.trim())
-    formData.append(GOOGLE_FORM_ENTRY_IDS.email, form.email.trim())
-    formData.append(GOOGLE_FORM_ENTRY_IDS.country, form.country)
-    formData.append(GOOGLE_FORM_ENTRY_IDS.service, form.service)
-    formData.append(GOOGLE_FORM_ENTRY_IDS.budget, form.budget)
-    formData.append(GOOGLE_FORM_ENTRY_IDS.mobile, form.mobile.trim())
-    formData.append(GOOGLE_FORM_ENTRY_IDS.message, form.message.trim())
-
     try {
-      await fetch(GOOGLE_FORM_URL, {
+      const response = await fetch(API_ENDPOINTS.contact, {
         method: 'POST',
-        mode: 'no-cors',
-        body: formData,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: form.name.trim(),
+          email: form.email.trim(),
+          mobile: form.mobile.trim(),
+          country: form.country,
+          service: form.service,
+          budget: form.budget,
+          message: form.message.trim(),
+        }),
       })
+      const data = await response.json()
+
+      if (!response.ok) {
+        const missingFields = Array.isArray(data.fields) && data.fields.length > 0
+          ? `: ${data.fields.join(', ')}`
+          : ''
+
+        throw new Error(`${data.message || 'Unable to submit your request'}${missingFields}`)
+      }
+
       setStatus('sent')
       setForm(EMPTY_FORM)
-    } catch {
+    } catch (error) {
       setStatus('error')
-      setErrorMessage('Something went wrong. Please try again or contact us directly on WhatsApp.')
+      setErrorMessage(
+        error.message || 'Something went wrong. Please try again or contact us directly on WhatsApp.',
+      )
     }
   }
 

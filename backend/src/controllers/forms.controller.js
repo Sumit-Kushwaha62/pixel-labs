@@ -1,4 +1,5 @@
 import { unlink } from 'node:fs/promises'
+import { sendFormAlert } from '../services/email.service.js'
 import { appendFormRow } from '../services/googleSheets.service.js'
 
 const SUCCESS_RESPONSE = {
@@ -42,6 +43,18 @@ async function removeUploadedFile(file) {
   }
 }
 
+async function sendAlertSafely(formType, data) {
+  try {
+    const result = await sendFormAlert(formType, data)
+
+    if (result.sent) {
+      console.log(`${formType} email alert sent successfully`)
+    }
+  } catch (error) {
+    console.error(`${formType} email alert failed:`, error.message)
+  }
+}
+
 export async function submitContactForm(request, response) {
   const requiredFields = ['name', 'email', 'mobile', 'country', 'service', 'budget']
   const missingFields = getMissingFields(request.body, requiredFields)
@@ -51,20 +64,34 @@ export async function submitContactForm(request, response) {
   }
 
   try {
+    const timestamp = new Date().toISOString()
+    const contactData = {
+      timestamp,
+      name: clean(request.body.name),
+      email: clean(request.body.email),
+      mobile: clean(request.body.mobile),
+      country: clean(request.body.country),
+      service: clean(request.body.service),
+      budget: clean(request.body.budget),
+      message: clean(request.body.message),
+    }
+
     await appendFormRow('contact', [
-      new Date().toISOString(),
-      clean(request.body.name),
-      clean(request.body.email),
-      clean(request.body.mobile),
-      clean(request.body.country),
-      clean(request.body.service),
-      clean(request.body.budget),
-      clean(request.body.message),
+      contactData.timestamp,
+      contactData.name,
+      contactData.email,
+      contactData.mobile,
+      contactData.country,
+      contactData.service,
+      contactData.budget,
+      contactData.message,
     ])
+
+    await sendAlertSafely('contact', contactData)
 
     return response.status(201).json(SUCCESS_RESPONSE)
   } catch (error) {
-    console.error('Contact form submission failed:', error)
+    console.error('Contact form submission failed:', error.message)
     return response.status(500).json({
       success: false,
       message: 'Something went wrong',
@@ -82,23 +109,39 @@ export async function submitCareerForm(request, response) {
   }
 
   try {
+    const timestamp = new Date().toISOString()
+    const careerData = {
+      timestamp,
+      name: clean(request.body.name),
+      email: clean(request.body.email),
+      mobile: clean(request.body.mobile),
+      position: clean(request.body.position),
+      experience: clean(request.body.experience),
+      location: clean(request.body.location),
+      portfolio: clean(request.body.portfolio),
+      resumeLink: getUploadedFileUrl(request),
+      message: clean(request.body.message),
+    }
+
     await appendFormRow('career', [
-      new Date().toISOString(),
-      clean(request.body.name),
-      clean(request.body.email),
-      clean(request.body.mobile),
-      clean(request.body.position),
-      clean(request.body.experience),
-      clean(request.body.location),
-      clean(request.body.portfolio),
-      getUploadedFileUrl(request),
-      clean(request.body.message),
+      careerData.timestamp,
+      careerData.name,
+      careerData.email,
+      careerData.mobile,
+      careerData.position,
+      careerData.experience,
+      careerData.location,
+      careerData.portfolio,
+      careerData.resumeLink,
+      careerData.message,
     ])
+
+    await sendAlertSafely('career', careerData)
 
     return response.status(201).json(SUCCESS_RESPONSE)
   } catch (error) {
     await removeUploadedFile(request.file)
-    console.error('Career form submission failed:', error)
+    console.error('Career form submission failed:', error.message)
     return response.status(500).json({
       success: false,
       message: 'Something went wrong',
@@ -114,14 +157,21 @@ export async function submitNewsletterForm(request, response) {
   }
 
   try {
+    const newsletterData = {
+      timestamp: new Date().toISOString(),
+      email: clean(request.body.email),
+    }
+
     await appendFormRow('newsletter', [
-      new Date().toISOString(),
-      clean(request.body.email),
+      newsletterData.timestamp,
+      newsletterData.email,
     ])
+
+    await sendAlertSafely('newsletter', newsletterData)
 
     return response.status(201).json(SUCCESS_RESPONSE)
   } catch (error) {
-    console.error('Newsletter form submission failed:', error)
+    console.error('Newsletter form submission failed:', error.message)
     return response.status(500).json({
       success: false,
       message: 'Something went wrong',

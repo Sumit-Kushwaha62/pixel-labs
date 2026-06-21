@@ -1,16 +1,3 @@
-export const GOOGLE_FORM_URL =
-  'https://docs.google.com/forms/d/1vufjuEOfNiZoiMqTd8m4QqzQ0j8mSCdNmDxI6T1l_Xk/formResponse'
-
-export const GOOGLE_FORM_ENTRY_IDS = {
-  name: 'entry.1536288998',
-  email: 'entry.1238896594',
-  country: 'entry.1535592610',
-  service: 'entry.1039514553',
-  budget: 'entry.327297309',
-  mobile: 'entry.2079497310',
-  message: 'entry.744347555',
-}
-
 export const COUNTRY_OPTIONS = ['India', 'International']
 
 export const SERVICE_OPTIONS = [
