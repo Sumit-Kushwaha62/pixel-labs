@@ -205,7 +205,7 @@ export default function Services() {
           </div>
 
           <div className="services-grid">
-            {filtered.map((s, i) => (
+            {filtered.map(s => (
               <div
                 key={s.id}
                 className={`service-detail-card ${selected === s.id ? 'service-detail-card--open' : ''}`}

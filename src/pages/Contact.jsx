@@ -1,4 +1,11 @@
 import { useState } from 'react'
+import {
+  BUDGET_OPTIONS,
+  COUNTRY_OPTIONS,
+  GOOGLE_FORM_ENTRY_IDS,
+  GOOGLE_FORM_URL,
+  SERVICE_OPTIONS,
+} from '../config/googleForms'
 
 const contactMethods = [
   {
@@ -35,40 +42,20 @@ const contactMethods = [
   },
 ]
 
-const services = [
-  'Web Development',
-  'Mobile App Development',
-  'Custom Software / ERP',
-  'Hospital / School Management System',
-  'SEO Optimization',
-  'Website Redesign',
-  'Website Maintenance',
-  'AI & Automation',
-  'Digital Marketing',
-  'Other',
-]
-
-const budgets = [
-  'Under ₹15,000',
-  '₹15,000 – ₹40,000',
-  '₹40,000 – ₹1,00,000',
-  '₹1,00,000+',
-  'Not sure yet',
-]
-
-// Google Forms prefilled URL — replace with your actual form URL
-const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse'
+const EMPTY_FORM = {
+  name: '',
+  email: '',
+  country: '',
+  service: '',
+  budget: '',
+  mobile: '',
+  message: '',
+}
 
 export default function Contact() {
-  const [form, setForm] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    service: '',
-    budget: '',
-    message: '',
-  })
+  const [form, setForm] = useState(EMPTY_FORM)
   const [status, setStatus] = useState(null) // null | 'sending' | 'sent' | 'error'
+  const [errorMessage, setErrorMessage] = useState('')
 
   const handleChange = (e) => {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
@@ -76,17 +63,27 @@ export default function Contact() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setStatus('sending')
 
-    // Send to Google Forms via fetch (no-cors)
+    const requiredFields = ['name', 'email', 'country', 'service', 'budget', 'mobile']
+    const hasMissingField = requiredFields.some(field => !form[field].trim())
+
+    if (hasMissingField) {
+      setStatus('error')
+      setErrorMessage('Please complete all required fields before submitting.')
+      return
+    }
+
+    setStatus('sending')
+    setErrorMessage('')
+
     const formData = new FormData()
-    // Replace entry.XXXXXXXXX with your actual Google Form entry IDs
-    formData.append('entry.111111111', form.name)
-    formData.append('entry.222222222', form.email)
-    formData.append('entry.333333333', form.phone)
-    formData.append('entry.444444444', form.service)
-    formData.append('entry.555555555', form.budget)
-    formData.append('entry.666666666', form.message)
+    formData.append(GOOGLE_FORM_ENTRY_IDS.name, form.name.trim())
+    formData.append(GOOGLE_FORM_ENTRY_IDS.email, form.email.trim())
+    formData.append(GOOGLE_FORM_ENTRY_IDS.country, form.country)
+    formData.append(GOOGLE_FORM_ENTRY_IDS.service, form.service)
+    formData.append(GOOGLE_FORM_ENTRY_IDS.budget, form.budget)
+    formData.append(GOOGLE_FORM_ENTRY_IDS.mobile, form.mobile.trim())
+    formData.append(GOOGLE_FORM_ENTRY_IDS.message, form.message.trim())
 
     try {
       await fetch(GOOGLE_FORM_URL, {
@@ -95,9 +92,10 @@ export default function Contact() {
         body: formData,
       })
       setStatus('sent')
-      setForm({ name: '', email: '', phone: '', service: '', budget: '', message: '' })
+      setForm(EMPTY_FORM)
     } catch {
       setStatus('error')
+      setErrorMessage('Something went wrong. Please try again or contact us directly on WhatsApp.')
     }
   }
 
@@ -162,7 +160,7 @@ export default function Contact() {
                 <div className="contact-success">
                   <span className="contact-success__icon">🎉</span>
                   <h3>Message Sent Successfully!</h3>
-                  <p>We've received your enquiry. Expect a reply within 2 hours on WhatsApp or email.</p>
+                  <p>Thank you! Your request has been received. Our team will contact you within 24 hours.</p>
                   <button
                     className="btn-primary"
                     onClick={() => setStatus(null)}
@@ -186,65 +184,77 @@ export default function Contact() {
                       />
                     </div>
                     <div className="contact-form__field">
-                      <label className="contact-form__label">Phone Number *</label>
+                      <label className="contact-form__label">Mobile Number *</label>
                       <input
                         type="tel"
-                        name="phone"
-                        value={form.phone}
+                        name="mobile"
+                        value={form.mobile}
                         onChange={handleChange}
                         placeholder="+91 98765 43210"
+                        autoComplete="tel"
                         required
                       />
                     </div>
                   </div>
 
                   <div className="contact-form__field">
-                    <label className="contact-form__label">Email Address</label>
+                    <label className="contact-form__label">Email Address *</label>
                     <input
                       type="email"
                       name="email"
                       value={form.email}
                       onChange={handleChange}
                       placeholder="ramesh@example.com"
+                      autoComplete="email"
+                      required
                     />
                   </div>
 
                   <div className="contact-form__row">
                     <div className="contact-form__field">
-                      <label className="contact-form__label">Service Required *</label>
-                      <select name="service" value={form.service} onChange={handleChange} required>
-                        <option value="">Select a service...</option>
-                        {services.map(s => (
-                          <option key={s} value={s}>{s}</option>
+                      <label className="contact-form__label">Country *</label>
+                      <select name="country" value={form.country} onChange={handleChange} required>
+                        <option value="">Select country...</option>
+                        {COUNTRY_OPTIONS.map(country => (
+                          <option key={country} value={country}>{country}</option>
                         ))}
                       </select>
                     </div>
                     <div className="contact-form__field">
-                      <label className="contact-form__label">Budget Range</label>
-                      <select name="budget" value={form.budget} onChange={handleChange}>
-                        <option value="">Select budget...</option>
-                        {budgets.map(b => (
-                          <option key={b} value={b}>{b}</option>
+                      <label className="contact-form__label">Service Interested *</label>
+                      <select name="service" value={form.service} onChange={handleChange} required>
+                        <option value="">Select a service...</option>
+                        {SERVICE_OPTIONS.map(s => (
+                          <option key={s} value={s}>{s}</option>
                         ))}
                       </select>
                     </div>
                   </div>
 
                   <div className="contact-form__field">
-                    <label className="contact-form__label">Project Details *</label>
+                    <label className="contact-form__label">Budget *</label>
+                    <select name="budget" value={form.budget} onChange={handleChange} required>
+                      <option value="">Select budget...</option>
+                      {BUDGET_OPTIONS.map(b => (
+                        <option key={b} value={b}>{b}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="contact-form__field">
+                    <label className="contact-form__label">Message</label>
                     <textarea
                       name="message"
                       value={form.message}
                       onChange={handleChange}
                       placeholder="Tell us about your project — what do you want to build, who is it for, any special requirements..."
                       rows={5}
-                      required
                     />
                   </div>
 
                   {status === 'error' && (
                     <p className="contact-form__error">
-                      Something went wrong. Please WhatsApp us directly at +91 XXXXX XXXXX
+                      {errorMessage}
                     </p>
                   )}
 
