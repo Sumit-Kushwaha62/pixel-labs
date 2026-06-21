@@ -1,16 +1,75 @@
-# React + Vite
+# Pixel Labs Agency Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The repository contains two independent Node.js projects:
 
-Currently, two official plugins are available:
+- `frontend`: React and Vite website
+- `backend`: Express API
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Prerequisites
 
-## React Compiler
+- Node.js 18 or newer
+- npm
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Run the frontend
 
-## Expanding the ESLint configuration
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+The frontend runs at `http://localhost:5173` by default.
+
+To create a production build:
+
+```bash
+cd frontend
+npm run build
+```
+
+## Run the backend
+
+Create the local environment file:
+
+```bash
+cd backend
+copy .env.example .env
+```
+
+On macOS or Linux, use `cp .env.example .env` instead.
+
+Install dependencies and start the development server:
+
+```bash
+cd backend
+npm install
+npm run dev
+```
+
+The backend runs at `http://localhost:5000` by default.
+
+Health check:
+
+```text
+GET http://localhost:5000/api/health
+```
+
+Google Sheets form endpoints:
+
+```text
+POST /api/forms/contact
+POST /api/forms/career
+POST /api/forms/newsletter
+```
+
+Set `GOOGLE_SHEET_ID` and `GOOGLE_APPLICATION_CREDENTIALS` in `backend/.env`.
+Share the spreadsheet with the service account email as an editor. Career
+requests accept an optional PDF in the `resume` multipart field (maximum 5 MB)
+or an existing URL in `resumeLink`.
+
+Production-style start command:
+
+```bash
+cd backend
+npm start
+```
