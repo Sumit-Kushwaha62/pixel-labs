@@ -132,7 +132,7 @@ export default function About() {
       </section>
 
       {/* ── TIMELINE ── */}
-      <section className="section" style={{ background: 'var(--bg-card)' }}>
+      {/* <section className="section" style={{ background: 'var(--bg-card)' }}>
         <div className="container">
           <div className="section-header">
             <span className="section-tag">Our Journey</span>
@@ -154,10 +154,10 @@ export default function About() {
             <div className="timeline__line" />
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* ── TEAM ── */}
-      <section className="section">
+      {/* <section className="section">
         <div className="container">
           <div className="section-header">
             <span className="section-tag">The Team</span>
@@ -194,7 +194,7 @@ export default function About() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* ── VALUES ── */}
       <section className="section" style={{ background: 'var(--bg-card)' }}>
