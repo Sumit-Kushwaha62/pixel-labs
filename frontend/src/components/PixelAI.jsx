@@ -28,8 +28,8 @@ const INITIAL_MESSAGE = {
 const styles = `
   .pai__root {
     position: fixed;
-    right: 20px;
-    bottom: 110px;
+    right: clamp(12px, 2vw, 20px);
+    bottom: calc(96px + env(safe-area-inset-bottom, 0px));
     z-index: 10000;
     font-family: Inter, "Segoe UI", system-ui, sans-serif;
   }
@@ -126,19 +126,20 @@ const styles = `
   }
 
   .pai__window {
-    position: absolute;
-    right: 0;
-    bottom: 76px;
+    position: fixed;
+    right: clamp(12px, 2vw, 20px);
+    bottom: calc(96px + env(safe-area-inset-bottom, 0px));
     display: flex;
-    width: 350px;
-    height: 480px;
+    width: min(350px, calc(100vw - 24px));
+    height: min(480px, calc(100dvh - 116px));
+    max-height: calc(100dvh - 116px);
     overflow: hidden;
     color: #f7f7ff;
     background:
       radial-gradient(circle at 100% 0%, rgba(108, 99, 255, 0.17), transparent 38%),
       #0d0d1a;
     border: 1px solid rgba(139, 133, 255, 0.24);
-    border-radius: 20px;
+    border-radius: 18px;
     box-shadow: 0 24px 70px rgba(0, 0, 0, 0.6), 0 0 35px rgba(108, 99, 255, 0.12);
     opacity: 0;
     pointer-events: none;
@@ -389,15 +390,57 @@ const styles = `
 
   @media (max-width: 480px) {
     .pai__root {
-      right: 20px;
+      right: 16px;
+      bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+    }
+
+    .pai__toggle {
+      width: 54px;
+      height: 54px;
+    }
+
+    .pai__robot {
+      width: 28px;
+      height: 28px;
     }
 
     .pai__window {
-      position: fixed;
       right: 12px;
-      bottom: 172px;
+      bottom: calc(86px + env(safe-area-inset-bottom, 0px));
       width: calc(100vw - 24px);
-      height: min(480px, calc(100dvh - 196px));
+      height: min(440px, calc(100dvh - 104px));
+      max-height: calc(100dvh - 104px);
+      border-radius: 16px;
+    }
+
+    .pai__header {
+      min-height: 66px;
+      padding: 12px;
+    }
+
+    .pai__avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 11px;
+    }
+
+    .pai__messages {
+      padding: 14px 12px;
+      gap: 10px;
+    }
+
+    .pai__message {
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .pai__form {
+      padding: 10px;
+    }
+
+    .pai__input,
+    .pai__send {
+      height: 40px;
     }
 
     .pai__tooltip {
